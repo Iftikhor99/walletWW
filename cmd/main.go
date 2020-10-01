@@ -33,8 +33,12 @@ func main() {
 	fmt.Println(newP)
 	fmt.Println(ee2)
 
-	newP2, ee3 := svc.FindAccountByID(1)
+	newP2, ee3 := svc.FindPaymentByID(newP.ID)
 	fmt.Println(newP2)
 	fmt.Println(ee3)
+
+	ee4 := svc.Reject(newP.ID)
+	fmt.Println(account.Balance)
+	fmt.Println(ee4)
 
 }
