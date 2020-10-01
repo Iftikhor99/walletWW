@@ -107,7 +107,7 @@ func (s *Service) FindAccountByID(accountID int64) (*types.Account, error) {
 
 func (s *Service) FindPaymentByID(paymentID string) (*types.Payment, error) {
 	var paymentToReturn *types.Payment
-	var errType = ErrAccountNotFound
+	var errType = ErrPaymentNotFound
 	for _, payment := range s.payments {
 		if payment.ID != paymentID {
 			paymentToReturn = nil			
