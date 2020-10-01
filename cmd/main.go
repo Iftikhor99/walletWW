@@ -33,7 +33,7 @@ func main() {
 	fmt.Println(newP)
 	fmt.Println(ee2)
 
-	newP2, ee3 := svc.FindAccountById(1)
+	newP2, ee3 := svc.FindAccountByID(1)
 	fmt.Println(newP2)
 	fmt.Println(ee3)
 

@@ -90,7 +90,7 @@ func (s *Service) Pay(accountID int64, amount types.Money, category types.Paymen
 	return payment, nil
 }
 
-func (s *Service) FindAccountById(accountID int64) (*types.Account, error) {
+func (s *Service) FindAccountByID(accountID int64) (*types.Account, error) {
 	var accountToReturn *types.Account
 	var errType = ErrAccountNotFound
 	for _, account := range s.accounts {
