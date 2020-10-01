@@ -7,9 +7,9 @@ type PaymentCategory string
 type PaymentStatus string
 
 const (
-	StatusOk PaymentStatus = "OK"
-	StatusFail PaymentStatus = "FAIL"
-	StatusInProgress PaymentStatus = "INPROGRESS"
+	PaymentStatusOk PaymentStatus = "OK"
+	PaymentStatusFail PaymentStatus = "FAIL"
+	PaymentStatusInProgress PaymentStatus = "INPROGRESS"
 )
 
 
