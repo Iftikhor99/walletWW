@@ -7,6 +7,34 @@ import (
 	"testing"
 )
 
+var defaultTestAccount = testAccount{
+	phone: "+992000000001",
+	balance: 10_000_00,
+	payments: []struct {
+		amount types.Money
+		category types.PaymentCategory
+	}{
+		{amount: 1_000_00, category: "auto"},
+	},
+}
+
+type testAccount struct {
+	phone types.Phone
+	balance types.Money
+	payments []struct {
+		amount types.Money
+		category types.PaymentCategory
+	}
+}
+
+type testService struct {
+	*Service
+}
+
+func newTestService() *testService {
+	return &testService{Service: &Service{}}
+}
+
 // func TestService_Reject_success1(t *testing.T) {
 // 	s := &Service{}
 // 	phone := types.Phone("+992000000001")
