@@ -178,7 +178,7 @@ func (s *Service) Reject(paymentID string) error {
 	return nil
 }
 
-//Repeat
+//Repeat for
 func (s *Service) Repeat(paymentID string) error {
 
 	payment, err := s.FindPaymentByID(paymentID)
