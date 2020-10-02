@@ -41,8 +41,8 @@ func main() {
 	fmt.Println(account.Balance)
 	fmt.Println(ee4)
 
-	//ee5 := svc.Repeat(newP.ID)
-	//fmt.Println(ee5)
-	//fmt.Println(account.Balance)
+	newP2, ee5 := svc.Repeat(newP.ID)
+	fmt.Println(ee5)
+	fmt.Println(newP2.Amount)
 
 }

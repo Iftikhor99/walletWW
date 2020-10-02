@@ -152,22 +152,22 @@ func (s *Service) Reject(paymentID string) error {
 
 //Repeat for
 func (s *Service) Repeat(paymentID string) (*types.Payment, error) {
-	var paymentToReturn = &types.Payment{}
+	 var paymentToReturn = &types.Payment{}
 	payment, err := s.FindPaymentByID(paymentID)
-	if err != nil {
-		return paymentToReturn, err
-	}
+	 if err != nil {
+	 	return paymentToReturn, err
+	 }
 	
-	account, err := s.FindAccountByID(payment.AccountID)
-	if err != nil {
-		return paymentToReturn, err
-	}
+	// account, err := s.FindAccountByID(payment.AccountID)
+	// if err != nil {
+	// 	return paymentToReturn, err
+	// }
 
-	if account.Balance < payment.Amount {
-		return paymentToReturn, ErrNotEnoughBalance
-	}
+//	if account.Balance < payment.Amount {
+//		return paymentToReturn, ErrNotEnoughBalance
+//	}
 
-	account.Balance -= payment.Amount
+//	account.Balance -= payment.Amount
 	paymentIDNew := uuid.New().String() 
 	paymentNew := &types.Payment{
 		ID:			paymentIDNew,
