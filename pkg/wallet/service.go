@@ -17,34 +17,6 @@ type Service struct {
 	payments []*types.Payment
 }
 
-type testAccount struct {
-	phone types.Phone
-	balance types.Money
-	payments []struct {
-		amount types.Money
-		category types.PaymentCategory
-	}
-}
-
-var defaultTestAccount = testAccount{
-	phone: "+992000000001",
-	balance: 10_000_00,
-	payments: []struct {
-		amount types.Money
-		category types.PaymentCategory
-	}{
-		{amount: 1_000_00, category: "auto"},
-	},
-}
-
-
-type testService struct {
-	*Service
-}
-
-func newTestService() *testService {
-	return &testService{Service: &Service{}}
-}
 
 func (e Error) Error() string {
 	return string(e)
