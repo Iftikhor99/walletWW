@@ -167,7 +167,7 @@ func (s *Service) Repeat(paymentID string) (*types.Payment, error) {
 		return payment, ErrNotEnoughBalance
 	}
 
-//	account.Balance -= payment.Amount
+	account.Balance -= payment.Amount
 	paymentIDNew := uuid.New().String() 
 	paymentNew := &types.Payment{
 		ID:			paymentIDNew,

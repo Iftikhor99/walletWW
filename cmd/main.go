@@ -14,7 +14,7 @@ func main() {
 		return
 	} 
 
-	err = svc.Deposit(account.ID, 0)
+	err = svc.Deposit(account.ID, 100_000_00)
 	if err != nil {
 		switch err {
 		case wallet.ErrAmountMustBePositive:
@@ -26,7 +26,7 @@ func main() {
 	}
 	fmt.Println(account.Balance)
 
-	newP, ee2 := svc.Pay(account.ID,0,"food")
+	newP, ee2 := svc.Pay(account.ID,10_000_00,"food")
 
 	
 	fmt.Println(account.Balance)
@@ -37,12 +37,14 @@ func main() {
 	fmt.Println(newP2)
 	fmt.Println(ee3)
 
-	ee4 := svc.Reject(newP.ID)
-	fmt.Println(account.Balance)
-	fmt.Println(ee4)
+	//ee4 := svc.Reject(newP.ID)
+	//fmt.Println(account.Balance)
+	//fmt.Println(ee4)
 
-	newP2, ee5 := svc.Repeat("gh")
+	newP3, ee5 := svc.Repeat(newP.ID)
 	fmt.Println(ee5)
-	fmt.Println(newP2.Amount)
+	fmt.Println(newP3.Amount)
+	fmt.Println(account.Balance)
+
 
 }
