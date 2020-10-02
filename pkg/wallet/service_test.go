@@ -175,7 +175,7 @@ func TestService_Repeat_success(t *testing.T) {
 		
 	payment := payments[0]
 		
-	err = s.Repeat(payment.ID)
+	payment, err = s.Repeat(payment.ID)
 		
 	if err != nil {
 		t.Errorf("Repeat(): error = %v", err)
