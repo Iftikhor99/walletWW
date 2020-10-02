@@ -1,6 +1,7 @@
 package wallet
 
 import (
+	"fmt"
 	"github.com/google/uuid"
 	"reflect"
 	"github.com/Iftikhor99/wallet/v1/pkg/types"
@@ -181,4 +182,31 @@ func TestService_Repeat_success(t *testing.T) {
 		return
 	}
 		
+}
+
+func (s *testService) addAccount(data testAccount) (*types.Account, []*types.Payment, error) {
+	// perucTpupyemM TaM nonb30BaTena
+	account, err := s.RegisterAccount (data. phone)
+	if err != nil {
+		return nil, nil, fmt.Errorf("can't register account, error = %v", err)
+	}
+	
+	// MononHsem ero cyéT
+	err = s.Deposit(account.ID, data.balance)
+	if err != nil {
+		return nil, nil, fmt.Errorf("can't deposity account, error = %v", err)
+	}
+	
+	// BeinonHaem nnaTexu
+	// MOKeM CO3MaTb CNavc Cpa3y HYKHOM ONMHbI, NOCKONbKy 3HAaeM Ppa3sMep
+	payments := make([]*types.Payment, len(data.payments) )
+	for i, payment := range data.payments {
+		// Torga 30€Ccb padoTaem npocto yepes index, a He Yepe3 append
+		payments[i], err = s.Pay(account.ID, payment.amount, payment.category)
+		if err != nil {
+		return nil, nil, fmt.Errorf("can't make payment, error = %v", err)
+		}
+	}
+	
+	return account, payments, nil
 }
