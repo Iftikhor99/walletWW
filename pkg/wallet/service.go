@@ -152,10 +152,10 @@ func (s *Service) Reject(paymentID string) error {
 
 //Repeat for
 func (s *Service) Repeat(paymentID string) (*types.Payment, error) {
-	 var paymentToReturn = &types.Payment{}
+	// var paymentToReturn = &types.Payment{}
 	payment, err := s.FindPaymentByID(paymentID)
 	 if err != nil {
-	 	return paymentToReturn, err
+	 	return payment, err
 	 }
 	
 	// account, err := s.FindAccountByID(payment.AccountID)
@@ -178,5 +178,5 @@ func (s *Service) Repeat(paymentID string) (*types.Payment, error) {
 	}
 	s.payments = append(s.payments, paymentNew)
 	
-	return payment, nil
+	return paymentNew, nil
 }
