@@ -152,19 +152,19 @@ func (s *Service) Reject(paymentID string) error {
 
 //Repeat for
 func (s *Service) Repeat(paymentID string) (*types.Payment, error) {
-
+	var paymentToReturn = &types.Payment{}
 	payment, err := s.FindPaymentByID(paymentID)
 	if err != nil {
-		return nil, err
+		return paymentToReturn, err
 	}
 	
 	account, err := s.FindAccountByID(payment.AccountID)
 	if err != nil {
-		return nil, err
+		return paymentToReturn, err
 	}
 
 	if account.Balance < payment.Amount {
-		return nil, ErrNotEnoughBalance
+		return paymentToReturn, ErrNotEnoughBalance
 	}
 
 	account.Balance -= payment.Amount
