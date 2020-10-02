@@ -151,20 +151,20 @@ func (s *Service) Reject(paymentID string) error {
 }
 
 //Repeat for
-func (s *Service) Repeat(paymentID string) error {
+func (s *Service) Repeat(paymentID string) (*types.Payment, error) {
 
 	payment, err := s.FindPaymentByID(paymentID)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	
 	account, err := s.FindAccountByID(payment.AccountID)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	if account.Balance < payment.Amount {
-		return ErrNotEnoughBalance
+		return nil, ErrNotEnoughBalance
 	}
 
 	account.Balance -= payment.Amount
@@ -178,5 +178,5 @@ func (s *Service) Repeat(paymentID string) error {
 	}
 	s.payments = append(s.payments, paymentNew)
 	
-	return nil
+	return payment, nil
 }
