@@ -158,14 +158,14 @@ func (s *Service) Repeat(paymentID string) (*types.Payment, error) {
 	 	return payment, err
 	 }
 	
-	// account, err := s.FindAccountByID(payment.AccountID)
-	// if err != nil {
-	// 	return paymentToReturn, err
-	// }
+	account, err := s.FindAccountByID(payment.AccountID)
+	if err != nil {
+		return payment, err
+	}
 
-//	if account.Balance < payment.Amount {
-//		return paymentToReturn, ErrNotEnoughBalance
-//	}
+	if account.Balance < payment.Amount {
+		return payment, ErrNotEnoughBalance
+	}
 
 //	account.Balance -= payment.Amount
 	paymentIDNew := uuid.New().String() 
