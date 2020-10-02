@@ -36,34 +36,6 @@ func newTestService() *testService {
 	return &testService{Service: &Service{}}
 }
 
-// func TestService_Reject_success1(t *testing.T) {
-// 	s := &Service{}
-// 	phone := types.Phone("+992000000001")
-// 	account, err := s.RegisterAccount(phone)
-	
-// 	if err != nil {
-// 		t.Errorf("Reject(): cant't register account, error = %v", err)
-// 		return
-// 	} 
-
-// 	err = s.Deposit(account.ID, 10_000_00)
-// 	if err != nil {
-// 		t.Errorf("Reject(): cant't deposit account, error = %v", err)
-// 		return
-// 	}	
-
-// 	payment, err := s.Pay(account.ID, 1000_00, "auto")
-// 	if err != nil {
-// 		t.Errorf("Reject(): cant't create payment, error = %v", err)
-// 		return
-// 	}
-
-// 	err = s.Reject(payment.ID)
-// 	if err != nil {
-// 		t.Errorf("Reject(): cant't reject payment, error = %v", err)
-// 		return
-// 	}
-// }
 
 func TestService_FindPaymentByID_success(t *testing.T) {
 
@@ -183,6 +155,31 @@ func TestService_Repeat_success(t *testing.T) {
 	}
 		
 }
+
+func TestService_PayFromFavorite_success(t *testing.T) {
+
+	s := newTestService()
+	_, payments, err := s.addAccount(defaultTestAccount)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+		
+	// Tpo6yem HavtTu nnaTéx
+		
+	payment := payments[0]
+
+	favorite, err := s.FavoritePayment(payment.ID, "Tcell")
+		
+	payment, err = s.PayFromFavorite(favorite.ID)
+		
+	if err != nil {
+		t.Errorf("PayFromFavorite(): error = %v", err)
+		return
+	}
+		
+}
+
 
 func (s *testService) addAccount(data testAccount) (*types.Account, []*types.Payment, error) {
 	// perucTpupyemM TaM nonb30BaTena
