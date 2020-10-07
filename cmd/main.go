@@ -3,7 +3,7 @@ package main
 import (
 //	"go/types"
 	"fmt"
-	"github.com/Iftikhor99/wallet/pkg/walet"
+	"github.com/Iftikhor99/wallet/pkg/wallet"
 //	"wallet/pkg/wallet"
 )
 

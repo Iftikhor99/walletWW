@@ -8,7 +8,7 @@ import (
 
 	//	"github.com/Iftikhor99/wallet/v1/pkg/types"
 	"testing"
-	"wallet/pkg/types"
+	"github.com/Iftikhor99/wallet/pkg/types"
 )
 
 var defaultTestAccount = testAccount{

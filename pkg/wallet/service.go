@@ -4,7 +4,7 @@ import (
 	"errors"
 //	"github.com/coursar/wallet/pkg/types"
 	"github.com/google/uuid"
-	"wallet/pkg/types"
+	"github.com/Iftikhor99/wallet/pkg/types"
 )
 //ErrPhoneRegistered for
 var ErrPhoneRegistered = errors.New("phone already registered")
