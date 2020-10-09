@@ -1,6 +1,9 @@
 package wallet
 
 import (
+	"strconv"
+	"os"
+	"log"
 //	"fmt"
 	"github.com/google/uuid"
 	"errors"
@@ -253,4 +256,69 @@ func (s *Service) PayFromFavorite(favoriteID string) (*types.Payment, error) {
 	}
 	s.payments = append(s.payments, payment)
 	return payment, nil
+}
+//ExportToFile for
+func (s *Service) ExportToFile(path string) error{
+
+	
+	
+	fileNew, err := os.Create(path)
+	if err != nil {
+		log.Print(err)
+		
+	}
+
+	defer func() {
+		
+		if cerr := fileNew.Close(); err != nil {
+			log.Print(cerr)
+		}
+	}()
+	for index, account := range s.accounts {
+	//	account, err = s.FindAccountByID(int64(ind))
+	// fmt.Println(newP2)
+	// fmt.Println(ee3)
+	 if index != 0 {
+		_, err = fileNew.Write([]byte("|"))
+		if err != nil {
+			log.Print(err)
+			
+		}
+		
+	}
+
+	_, err = fileNew.Write([]byte(strconv.FormatInt((account.ID), 10)))
+	if err != nil {
+		log.Print(err)
+		
+	}
+
+	_, err = fileNew.Write([]byte(";"))
+	if err != nil {
+		log.Print(err)
+		
+	}
+	_, err = fileNew.Write([]byte(string(account.Phone)))
+	if err != nil {
+		log.Print(err)
+		
+	}
+
+	_, err = fileNew.Write([]byte(";"))
+	if err != nil {
+		log.Print(err)
+		
+	}
+
+	_, err = fileNew.Write([]byte(strconv.FormatInt(int64(account.Balance), 10)))
+	if err != nil {
+		log.Print(err)
+		
+	}
+
+
+	}
+
+	return err
+
 }
