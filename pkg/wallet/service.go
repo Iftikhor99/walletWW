@@ -1,6 +1,8 @@
 package wallet
 
 import (
+	"strings"
+	"io"
 	"strconv"
 	"os"
 	"log"
@@ -319,6 +321,79 @@ func (s *Service) ExportToFile(path string) error{
 
 	}
 
+	return err
+
+}
+
+//ImportFromFile for
+func (s *Service) ImportFromFile(path string) error{
+
+	file, err := os.Open(path)
+	if err != nil {
+		log.Print(err)
+		
+	}
+
+	defer func() {
+		err := file.Close()
+		if err != nil {
+			log.Print(err)
+		}
+	}()
+
+	log.Printf("%#v", file)
+
+	content := make([]byte, 0)
+	buf := make([]byte, 4)
+	for {
+		read, err := file.Read(buf)
+		if err == io.EOF {
+			break
+		}
+		content = append(content, buf[:read]...)
+	}
+	
+	data := string(content)
+	newData := strings.Split(data, "|")
+	log.Print(data)
+	log.Print(newData)
+	
+	
+	for ind1, stroka := range newData {
+		log.Print(stroka)
+		account := &types.Account {
+			}	
+		newData2 := strings.Split(stroka, ";")
+		for ind, stroka2 := range newData2 {
+			
+			log.Print(stroka2)
+			if ind == 0{
+				id, _ := strconv.ParseInt(stroka2, 10, 64)
+				account.ID = id
+			}
+			if ind == 1{
+				account.Phone = types.Phone(stroka2)
+			}
+			if ind == 2{
+				balance, _ := strconv.ParseInt(stroka2, 10, 64)
+				account.Balance = types.Money(balance)
+					
+			}
+					
+			// if (ind1 == 0) && (ind ==2) {
+				log.Print(ind1)
+			// 	s.accounts = append(s.accounts, account)		
+			// }  
+
+			// if (ind1 == 1) && (ind ==2) {
+			// 	log.Print(account)
+			// 	s.accounts = append(s.accounts, account)		
+			// } 
+
+		}
+		s.accounts = append(s.accounts, account)
+	}
+	
 	return err
 
 }
