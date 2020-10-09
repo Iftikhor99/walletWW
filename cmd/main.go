@@ -1,53 +1,55 @@
 package main
 
 import (
+//	"github.com/Iftikhor99/wallet/v1/pkg/types"
+//	"strings"
 //	"strconv"
-	"io"
+//	"io"
 	"log"
-	"os"
-	"fmt"
+//	"os"
+//	"fmt"
 	"github.com/Iftikhor99/wallet/v1/pkg/wallet"
 )
 
 
 func main() {
 	svc := &wallet.Service{}
-	accountTest , err := svc.RegisterAccount("+992000000001")
-	if err != nil {
-		fmt.Println(err)
-		return
-	} 
+	// accountTest , err := svc.RegisterAccount("+992000000001")
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	return
+	// } 
 
-	err = svc.Deposit(accountTest.ID, 100_000_00)
-	if err != nil {
-		switch err {
-		case wallet.ErrAmountMustBePositive:
-			fmt.Println("Сумма должна быть положительной")
-		case wallet.ErrAccountNotFound:
-			fmt.Println("Аккаунт пользователя не найден")		
-		}		
-		return
-	}
-	fmt.Println(accountTest.Balance)
+	// err = svc.Deposit(accountTest.ID, 100_000_00)
+	// if err != nil {
+	// 	switch err {
+	// 	case wallet.ErrAmountMustBePositive:
+	// 		fmt.Println("Сумма должна быть положительной")
+	// 	case wallet.ErrAccountNotFound:
+	// 		fmt.Println("Аккаунт пользователя не найден")		
+	// 	}		
+	// 	return
+	// }
+	// fmt.Println(accountTest.Balance)
 
 	
-	accountTest , err = svc.RegisterAccount("+992000000002")
-	if err != nil {
-		fmt.Println(err)
-		return
-	} 
+	// accountTest , err = svc.RegisterAccount("+992000000002")
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	return
+	// } 
 
-	err = svc.Deposit(accountTest.ID, 200_000_00)
-	if err != nil {
-		switch err {
-		case wallet.ErrAmountMustBePositive:
-			fmt.Println("Сумма должна быть положительной")
-		case wallet.ErrAccountNotFound:
-			fmt.Println("Аккаунт пользователя не найден")		
-		}		
-		return
-	}
-	fmt.Println(accountTest.Balance)
+	// err = svc.Deposit(accountTest.ID, 200_000_00)
+	// if err != nil {
+	// 	switch err {
+	// 	case wallet.ErrAmountMustBePositive:
+	// 		fmt.Println("Сумма должна быть положительной")
+	// 	case wallet.ErrAccountNotFound:
+	// 		fmt.Println("Аккаунт пользователя не найден")		
+	// 	}		
+	// 	return
+	// }
+	// fmt.Println(accountTest.Balance)
 
 
 	// newP, ee2 := svc.Pay(account.ID,10_000_00,"food")
@@ -80,37 +82,13 @@ func main() {
 
 	// fmt.Println(account.Balance)
 
-	file, err := os.Open("data/readme.txt")
-	if err != nil {
-		log.Print(err)
-		return
-	}
-
-	defer func() {
-		err := file.Close()
-		if err != nil {
-			log.Print(err)
-		}
-	}()
-
-	log.Printf("%#v", file)
-
-	content := make([]byte, 0)
-	buf := make([]byte, 4)
-	for {
-		read, err := file.Read(buf)
-		if err == io.EOF {
-			break
-		}
-		content = append(content, buf[:read]...)
-	}
-	
-	data := string(content)
-	log.Print(data)
+	err := svc.ImportFromFile("data/readme.txt")
+	log.Print(err)
 
 	err = svc.ExportToFile("data/message.txt")
 	log.Print(err)
-	
 
+	
+	
 
 }
