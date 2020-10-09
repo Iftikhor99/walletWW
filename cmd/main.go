@@ -1,6 +1,10 @@
 package main
 
 import (
+//	"strconv"
+	"io"
+	"log"
+	"os"
 	"fmt"
 	"github.com/Iftikhor99/wallet/v1/pkg/wallet"
 )
@@ -8,13 +12,13 @@ import (
 
 func main() {
 	svc := &wallet.Service{}
-	account , err := svc.RegisterAccount("+992000000001")
+	accountTest , err := svc.RegisterAccount("+992000000001")
 	if err != nil {
 		fmt.Println(err)
 		return
 	} 
 
-	err = svc.Deposit(account.ID, 100_000_00)
+	err = svc.Deposit(accountTest.ID, 100_000_00)
 	if err != nil {
 		switch err {
 		case wallet.ErrAmountMustBePositive:
@@ -24,36 +28,89 @@ func main() {
 		}		
 		return
 	}
-	fmt.Println(account.Balance)
-
-	newP, ee2 := svc.Pay(account.ID,10_000_00,"food")
+	fmt.Println(accountTest.Balance)
 
 	
-	fmt.Println(account.Balance)
-	fmt.Println(newP)
-	fmt.Println(ee2)
+	accountTest , err = svc.RegisterAccount("+992000000002")
+	if err != nil {
+		fmt.Println(err)
+		return
+	} 
 
-	newP2, ee3 := svc.FindPaymentByID(newP.ID)
-	fmt.Println(newP2)
-	fmt.Println(ee3)
+	err = svc.Deposit(accountTest.ID, 200_000_00)
+	if err != nil {
+		switch err {
+		case wallet.ErrAmountMustBePositive:
+			fmt.Println("Сумма должна быть положительной")
+		case wallet.ErrAccountNotFound:
+			fmt.Println("Аккаунт пользователя не найден")		
+		}		
+		return
+	}
+	fmt.Println(accountTest.Balance)
 
-	//ee4 := svc.Reject(newP.ID)
-	//fmt.Println(account.Balance)
-	//fmt.Println(ee4)
 
-	newP3, ee5 := svc.Repeat(newP.ID)
-	fmt.Println(ee5)
-	fmt.Println(newP3.Amount)
-	fmt.Println(account.Balance)
+	// newP, ee2 := svc.Pay(account.ID,10_000_00,"food")
 
-	fav, errFv := svc.FavoritePayment(newP3.ID, "Tcell")
-	fmt.Println(errFv)
-	fmt.Println(fav)
+	
+	// fmt.Println(account.Balance)
+	// fmt.Println(newP)
+	// fmt.Println(ee2)
 
-	newP4, eeFv2 := svc.PayFromFavorite("fav.ID")
-	fmt.Println(eeFv2)
-	fmt.Println(newP4)
+	// newP2, ee3 := svc.FindPaymentByID(newP.ID)
+	// fmt.Println(newP2)
+	// fmt.Println(ee3)
 
-	fmt.Println(account.Balance)
+	// //ee4 := svc.Reject(newP.ID)
+	// //fmt.Println(account.Balance)
+	// //fmt.Println(ee4)
+
+	// newP3, ee5 := svc.Repeat(newP.ID)
+	// fmt.Println(ee5)
+	// fmt.Println(newP3.Amount)
+	// fmt.Println(account.Balance)
+
+	// fav, errFv := svc.FavoritePayment(newP3.ID, "Tcell")
+	// fmt.Println(errFv)
+	// fmt.Println(fav)
+
+	// newP4, eeFv2 := svc.PayFromFavorite("fav.ID")
+	// fmt.Println(eeFv2)
+	// fmt.Println(newP4)
+
+	// fmt.Println(account.Balance)
+
+	file, err := os.Open("data/readme.txt")
+	if err != nil {
+		log.Print(err)
+		return
+	}
+
+	defer func() {
+		err := file.Close()
+		if err != nil {
+			log.Print(err)
+		}
+	}()
+
+	log.Printf("%#v", file)
+
+	content := make([]byte, 0)
+	buf := make([]byte, 4)
+	for {
+		read, err := file.Read(buf)
+		if err == io.EOF {
+			break
+		}
+		content = append(content, buf[:read]...)
+	}
+	
+	data := string(content)
+	log.Print(data)
+
+	err = svc.ExportToFile("data/message.txt")
+	log.Print(err)
+	
+
 
 }
