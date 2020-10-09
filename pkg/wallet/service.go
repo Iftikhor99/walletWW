@@ -365,7 +365,9 @@ func (s *Service) ImportFromFile(path string) error{
 			}	
 		newData2 := strings.Split(stroka, ";")
 		for ind, stroka2 := range newData2 {
-			
+			if stroka2 == "" {
+				return ErrPhoneRegistered
+			}
 			log.Print(stroka2)
 			if ind == 0{
 				id, _ := strconv.ParseInt(stroka2, 10, 64)
@@ -398,9 +400,15 @@ func (s *Service) ImportFromFile(path string) error{
 			if accountCheck.ID == account.ID {
 				return ErrPhoneRegistered
 			}
+			
 
 		}
 		s.accounts = append(s.accounts, account)
+	}
+	for _, account := range s.accounts {
+	//	if account.Phone == phone {
+			log.Print(account)
+	//	}
 	}
 	
 	return err
