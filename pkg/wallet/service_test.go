@@ -183,7 +183,7 @@ func TestService_PayFromFavorite_success(t *testing.T) {
 
 func (s *testService) addAccount(data testAccount) (*types.Account, []*types.Payment, error) {
 	// perucTpupyemM TaM nonb30BaTena
-	account, err := s.RegisterAccount (data. phone)
+	account, err := s.RegisterAccount (data.phone)
 	if err != nil {
 		return nil, nil, fmt.Errorf("can't register account, error = %v", err)
 	}
