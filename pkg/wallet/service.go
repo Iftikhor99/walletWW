@@ -393,16 +393,16 @@ func (s *Service) ImportFromFile(path string) error{
 			// } 
 
 		}
-		// for _, accountCheck := range s.accounts {
-		// 	if accountCheck.Phone == account.Phone {
-		// 		return ErrPhoneRegistered
-		// 	}
-		// 	if accountCheck.ID == account.ID {
-		// 		return ErrPhoneRegistered
-		// 	}
+		for _, accountCheck := range s.accounts {
+			if accountCheck.Phone == account.Phone {
+				return ErrPhoneRegistered
+			}
+			if accountCheck.ID == account.ID {
+				return ErrPhoneRegistered
+			}
 			
 
-		// }
+		 }
 		s.accounts = append(s.accounts, account)
 	}
 	for _, account := range s.accounts {
