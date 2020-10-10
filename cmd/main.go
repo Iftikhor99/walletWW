@@ -85,7 +85,7 @@ func main() {
 	err = svc.ExportToFile("data/message.txt")
 	log.Print(err)
 	
-	err = svc.ImportFromFile("data/message.txt")
+	err = svc.ImportFromFile("data/readme.txt")
 	log.Print(err)
 
 	
