@@ -82,11 +82,13 @@ func main() {
 
 	// fmt.Println(account.Balance)
 
+	err = svc.ImportFromFile("data/readme.txt")
+	log.Print(err)	
+	
 	err = svc.ExportToFile("data/message.txt")
 	log.Print(err)
 	
-	err = svc.ImportFromFile("data/readme.txt")
-	log.Print(err)
+
 
 	
 
